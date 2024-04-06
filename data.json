@@ -1,0 +1,22 @@
+{
+    "verbs":[
+        {
+            "name":"etre", 
+            "translate":"To be",
+            "forms":{
+                "present":{
+                    "Je":"suis",
+                    "Tu":"es", 
+                    "Il/Elle": "est", 
+                    "Nous":"sommes",
+                    "Vous":"êtes", 
+                    "Ils/Elles": "sont", 
+                    "keys":["Je", "Tu", "Il/Elle", "Nous", "Vous", "Ils/Elles"]
+                }
+            }
+        },
+        {
+            "name":"fait"
+        }
+    ]
+}
