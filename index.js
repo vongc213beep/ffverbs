@@ -4,7 +4,6 @@ async function loadData(){
     return dataset;
 }
 
-
 function buildOption(group, id, name){
     let opt = document.createElement("option"); 
     opt.id = group + "$" + id; 
@@ -31,8 +30,12 @@ function initForm(dataset){
 function buildVerbTable(dataset, verbInd){
     let verbData = dataset.verbs[verbInd]; 
     if (verbData == null) return; 
+    
     let vName = verbData.name; 
     let vTranslate = verbData.translate; 
+    verbNameFN.innerText = `Verb Name: ${vName}`; 
+    verbNameEN.innerText = `Meaning: ${vTranslate}`; 
+    
     verbData = verbData.forms.present; 
     let tblModel = new VerbModel(verbData, selectDiff.selectedIndex); 
     tablecontainer.innerHTML = "";
@@ -68,12 +71,14 @@ async function performAction(event){
         let ind =  document.getElementById("selectVerb").selectedIndex;
         let feedback = checkIfAnswers(d, ind); 
         if (feedback == ''){
-            Swal.fire({
+            await Swal.fire({
                 title: `You learnt the verb ${d.verbs[ind].name}!`,
                 text: "Now you move onward",
                 icon: 'success',
                 confirmButtonText: 'On-Ward!'
-            })
+            }); 
+            document.getElementById("selectVerb").selectedIndex = ((ind + 1) % d.verbs.length);  
+            buildVerbTable(d, document.getElementById("selectVerb").selectedIndex); 
         }else{
             Swal.fire({
                 title: 'You have mistakes!',
