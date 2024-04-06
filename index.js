@@ -61,14 +61,35 @@ function checkIfAnswers(d, ind){
     return feedback; 
 }
 
+function areAnswersValid(){
+    let allAnswers = document.querySelectorAll(".answer");
+    for (let i = 0; i < allAnswers.length; i++){
+        let selVal = allAnswers[i].value; 
+        if (selVal == "") return false;
+    }
+    return true; 
+}
+
 async function performAction(event){
     const id = event.currentTarget.id; 
-    if (id == "selectVerb"){
+    if (id == "selectVerb" || id == "selectDiff"){
+        checkBtn.disabled = true; 
         let d = await loadData(); 
         buildVerbTable(d, document.getElementById("selectVerb").selectedIndex); 
+        checkBtn.disabled = false;
     }else if(id == "checkBtn"){
+        if (!areAnswersValid()){
+            await Swal.fire({
+                title: `Check your Answers!`,
+                text: "Please fill in all answers!",
+                icon: 'warning',
+                confirmButtonText: 'Ok!'
+            }); 
+            return; 
+        }
         let d = await loadData(); 
         let ind =  document.getElementById("selectVerb").selectedIndex;
+        
         let feedback = checkIfAnswers(d, ind); 
         if (feedback == ''){
             await Swal.fire({
@@ -182,12 +203,16 @@ class VerbModel{
 
     getCompForMidDiff(){
         /**todo */
-        return ""; 
+        if ((Math.random() * 100) <= 50){
+            return this.getCompForEasyDiff();
+        }else{
+            return this.getCompForHardDiff(); 
+        }
     }
 
     getCompForHardDiff(){
         /**todo */
-        return "";
+        return "<input type='text' class='form-control answer' />";
     }
 
     getComponentBasedOnDiff(){
