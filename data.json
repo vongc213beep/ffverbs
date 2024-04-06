@@ -16,7 +16,19 @@
             }
         },
         {
-            "name":"fait"
+            "name":"fait",
+            "translate":"To do/To make", 
+            "forms":{
+                "present":{
+                    "Je":"fais",
+                    "Tu":"fais", 
+                    "Il/Elle": "fait", 
+                    "Nous":"faisons", 
+                    "Vous":"faites", 
+                    "Ils/Elles":"font",
+                    "keys":["Je", "Tu", "Il/Elle", "Nous", "Vous", "Ils/Elles"]
+                }
+            }
         }
     ]
 }
