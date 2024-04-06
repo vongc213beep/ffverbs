@@ -40,11 +40,48 @@ function buildVerbTable(dataset, verbInd){
 }
 
 
+function checkIfAnswers(d, ind){
+    let feedback = ""; 
+
+    let allAnswers = document.querySelectorAll(".answer");
+    for (let i = 0; i < allAnswers.length; i++){
+        let selVal = allAnswers[i].value; 
+        let prn = d.verbs[ind].forms.present.keys[i];
+        let actVal = d.verbs[ind].forms.present[prn]; 
+
+        if (selVal != actVal){
+            feedback += `The correct conjucate for "${prn}" should be "${actVal}" not "${selVal}"\n`;
+        }
+    }
+
+
+    return feedback; 
+}
+
 async function performAction(event){
     const id = event.currentTarget.id; 
     if (id == "selectVerb"){
         let d = await loadData(); 
         buildVerbTable(d, document.getElementById("selectVerb").selectedIndex); 
+    }else if(id == "checkBtn"){
+        let d = await loadData(); 
+        let ind =  document.getElementById("selectVerb").selectedIndex;
+        let feedback = checkIfAnswers(d, ind); 
+        if (feedback == ''){
+            Swal.fire({
+                title: `You learnt the verb ${d.verbs[ind].name}!`,
+                text: "Now you move onward",
+                icon: 'success',
+                confirmButtonText: 'On-Ward!'
+            })
+        }else{
+            Swal.fire({
+                title: 'You have mistakes!',
+                text: feedback,
+                icon: 'error',
+                confirmButtonText: 'Try again!'
+            })
+        }
     }
 }
 
@@ -105,11 +142,31 @@ class VerbModel{
         }
     }
 
+    shuffle(array) {
+        let currentIndex = array.length;
+      
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+      
+          // Pick a remaining element...
+          let randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+      }
+      
+
     getCompForEasyDiff(){
-        let comp = "<select class='form-control'>"; 
+        let comp = "<select class='form-control answer'>"; 
         
-        for (let i = 0; i < this.dataset.keys.length; i++){
-            let key = this.dataset.keys[i]; 
+        let arr = Object.assign([], this.dataset.keys); 
+        this.shuffle(arr);
+
+        for (let i = 0; i < arr.length; i++){
+            let key = arr[i]; 
             comp += `<option>${this.dataset[key]}</option>`;
         }
 
