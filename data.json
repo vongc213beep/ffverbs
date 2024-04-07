@@ -29,6 +29,9 @@
                     "keys":["Je", "Tu", "Il/Elle", "Nous", "Vous", "Ils/Elles"]
                 }
             }
-        }
+        },
+        {"name":"avoir","translate":"to have","forms":{"present":{"keys":["Je","Tu","Il/Elle","Nous","Vous","Ils/Elles"],"Je":"J'ai","Tu":"as","Il/Elle":"a","Nous":"avons","Vous":"avez","Ils/Elles":"ont"}}},
+        {"name":"mange","translate":"to eat/dine","forms":{"present":{"keys":["Je","Tu","Il/Elle","Nous","Vous","Ils/Elles"],"Je":"mange","Tu":"manges","Il/Elle":"mange","Nous":"mangeons","Vous":"mangez","Ils/Elles":"mangent"}}},
+        {"name":"aimer","translate":"to like","forms":{"present":{"keys":["Je","Tu","Il/Elle","Nous","Vous","Ils/Elles"],"Je":"J'aime","Tu":"aimes","Il/Elle":"aime","Nous":"aimons","Vous":"aimez","Ils/Elles":"aiment"}}}
     ]
 }
